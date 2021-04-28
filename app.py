@@ -22,7 +22,6 @@ def preprocessing_hi(text_hi):
         and not token.is_digit
         and not token.is_quote
         and not token.is_alpha
-        and (re.search(r'@\S+',token.text) is None)
         and not token.like_url):
       tweet_hi.append(token.lemma_)  
   tweet = ' '.join([token  for token in tweet_hi])
