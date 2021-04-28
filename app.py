@@ -52,8 +52,8 @@ def predict():
   data = request.get_json(force=True)
   sent = data['comment']
   res={}
-  af_pre=preprocessing_hi(sent)
-  res['after']=af_pre
+ # af_pre=preprocessing_hi(sent)
+  res['after']=sent
                  
   return jsonify(res)
 if __name__ == "__main__":
