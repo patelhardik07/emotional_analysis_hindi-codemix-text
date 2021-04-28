@@ -6,14 +6,7 @@ from spacy.lang.hi import Hindi
 import regex as re
 nlp_hi = Hindi()
 
-app = Flask(__name__)
-CORS(app)
-cors = CORS(app, resources={
-    r"/*": {
-        "origins": "*"
-    }
-})
-# routes
+
 
 extended_stop_words = ['जी','श्री','|','l','श्रीमती']
 for stopword in extended_stop_words:
@@ -40,6 +33,14 @@ def preprocessing_hi(text_hi):
   tweet = ' '.join([token  for token in tweet_hi])
    
   return tweet
+app = Flask(__name__)
+CORS(app)
+cors = CORS(app, resources={
+    r"/*": {
+        "origins": "*"
+    }
+})
+# routes
     
 @app.route('/', methods=['POST'])
 #@crossdomain(origin='*')
