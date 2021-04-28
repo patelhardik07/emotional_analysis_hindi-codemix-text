@@ -52,19 +52,7 @@ def predict():
   res={}
   af_pre=preprocessing_hi(sent)
   res['after']=af_pre
-        
-        
-        
-        #res[i]={}
-        """
-        if prediction[0] == 1:
-            res[i]['comment']=data['comment'][i]
-            res[i]['sentiment']="Postive"
-        else:
-            res[i]['comment']=data['comment'][i]
-            res[i]['sentiment']="Negative"
-            """
-            
-    return jsonify(res)
+                 
+  return jsonify(res)
 if __name__ == "__main__":
     app.run(port = 5000, debug=True)
