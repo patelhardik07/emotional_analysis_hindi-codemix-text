@@ -9,11 +9,6 @@ from flask_cors import CORS
 nlp_hi = Hindi()
 
 
-
-extended_stop_words = ['जी','श्री','|','l','श्रीमती']
-for stopword in extended_stop_words:
-    lexeme = nlp_hi.vocab[stopword]
-    lexeme.is_stop = True
     
 def preprocessing_hi(text_hi):
   tweet_hi = []
@@ -29,9 +24,7 @@ def preprocessing_hi(text_hi):
         and not token.is_alpha
         and (re.search(r'@\S+',token.text) is None)
         and not token.like_url):
-      tweet_hi.append(token.lemma_)
-
-  
+      tweet_hi.append(token.lemma_)  
   tweet = ' '.join([token  for token in tweet_hi])
    
   return tweet
