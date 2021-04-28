@@ -52,9 +52,9 @@ def predict():
   data = request.get_json(force=True)
   sent = data['comment']
   res={}
- # af_pre=preprocessing_hi(sent)
-  res['after']=sent
-                 
+  af_pre=preprocessing_hi(sent)
+  res['after']=af_pre
+                
   return jsonify(res)
 if __name__ == "__main__":
     app.run(port = 5000, debug=True)
