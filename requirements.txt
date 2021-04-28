@@ -6,3 +6,4 @@ requests==2.22.0
 Flask-Cors==3.0.10
 pandas>=0.19
 spacy>=2.2.4
+regex>=2020.6.7
