@@ -4,6 +4,8 @@ import itertools as it
 import spacy
 from spacy.lang.hi import Hindi
 import regex as re
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS 
 nlp_hi = Hindi()
 
 
