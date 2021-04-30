@@ -66,7 +66,7 @@ def predict():
     cmt=sent
     af_pre=preprocessing_hi(sent)
     seq = tokenizer.texts_to_sequences(af_pre)
-    padded = pad_sequences(seq, maxlen=max_seq_len)
+    padded = pad_sequences(seq)
     predictions = loaded_model.predict(padded)
     pr=np.argmax(predictions)
     res[i]={}
