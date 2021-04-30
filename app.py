@@ -22,7 +22,8 @@ def preprocessing_hi(text_hi):
         and not token.is_digit
         and not token.is_quote
         and not token.is_alpha
-        and not token.like_url):  
+        and not token.like_url):
+        tweet_hi.append(token)
   tweet = ' '.join([token  for token in tweet_hi])
    
   return tweet
