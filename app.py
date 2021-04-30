@@ -29,7 +29,7 @@ def preprocessing_hi(text_hi):
   tweet = ' '.join([str(token)  for token in tweet_hi])
    
   return tweet
-labels = ['Negative-Anger', 'Negative-fear', 'Negative-sadness', 'Nuetral', 'Positive-Joy	', 'Positive-Surprise	', 'Positive-Trust ', 'Satire']
+labels = ['Negative-Anger', 'Negative-fear', 'Negative-sadness', 'Nuetral', 'Positive-Joy', 'Positive-Surprise', 'Positive-Trust', 'Satire']
 dat = pd.read_csv('dataset.csv', sep=',' ,names=["message", "sentiment"])
 dat=dat.drop(index=0)
 dat=dat.dropna()
