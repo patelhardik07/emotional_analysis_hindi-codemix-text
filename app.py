@@ -30,6 +30,17 @@ def preprocessing_hi(text_hi):
    
   return tweet
 
+dat = pd.read_csv('dataset.csv')
+corpus=[]
+for i in range(0, len(dat)):
+  comment = dat['message'][i]
+  comment_af = preprocessing_hi(comment)
+  corpus.append(comment_af)
+dat['new_messages'] = corpus
+
+max_fatures = 2000
+tokenizer = Tokenizer(num_words=max_fatures, split=' ')
+tokenizer.fit_on_texts(messages['new_messages'].values)
 
 app = Flask(__name__)
 CORS(app)
@@ -45,19 +56,15 @@ cors = CORS(app, resources={
 def predict():
     
     # get data
-  data = request.get_json(force=True)
-  sent = data['comment']
-  res={}
-  af_pre=preprocessing_hi(sent)
-  tokenizer = Tokenizer()
-  tokenizer.fit_on_texts(af_pre)
-  seq = tokenizer.texts_to_sequences(af_pre)
-  padded = pad_sequences(seq, maxlen=max_seq_len)
-  predictions = loaded_model.predict(padded)
-    #output=class_names[np.argmax(predictions, axis=1)]
-  pr=np.argmax(predictions)
-  res['prediction']=str(pr)
-                
+  for i in (data['comment']):
+    sent = data['comment'][i]
+    cmt=sent
+    af_pre=preprocessing_hi(sent)
+    seq = tokenizer.texts_to_sequences(af_pre)
+    padded = pad_sequences(seq, maxlen=max_seq_len)
+    predictions = loaded_model.predict(padded)
+    pr=np.argmax(predictions)
+    res['prediction']=str(pr)             
   return jsonify(res)
 if __name__ == "__main__":
     app.run(port = 5000, debug=True)
