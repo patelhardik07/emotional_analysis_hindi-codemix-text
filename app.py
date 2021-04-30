@@ -44,7 +44,7 @@ dat['new_messages'] = corpus
 
 max_fatures = 2000
 tokenizer = Tokenizer(num_words=max_fatures, split=' ')
-tokenizer.fit_on_texts(messages['new_messages'].values)
+tokenizer.fit_on_texts(dat['new_messages'].values)
 
 app = Flask(__name__)
 CORS(app)
