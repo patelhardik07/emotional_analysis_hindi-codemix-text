@@ -30,7 +30,11 @@ def preprocessing_hi(text_hi):
    
   return tweet
 
-dat = pd.read_csv('dataset.csv')
+dat = pd.read_csv('dataset.csv', sep=',' ,names=["message", "sentiment"])
+dat=dat.drop(index=0)
+dat=dat.dropna()
+dat=dat.drop(dat[dat['sentiment'] == "Discard"].index) 
+
 corpus=[]
 for i in range(0, len(dat)):
   comment = dat['message'][i]
