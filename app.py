@@ -7,9 +7,11 @@ import regex as re
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS 
 nlp_hi = Hindi()
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import tensorflow as tf
 
-
-    
+loaded_model = tf.keras.models.load_model('LSTM_hindi.h5')    
 def preprocessing_hi(text_hi):
   tweet_hi = []
   tokenized_text = nlp_hi(text_hi)
@@ -27,6 +29,8 @@ def preprocessing_hi(text_hi):
   tweet = ' '.join([str(token)  for token in tweet_hi])
    
   return tweet
+
+
 app = Flask(__name__)
 CORS(app)
 cors = CORS(app, resources={
@@ -45,9 +49,14 @@ def predict():
   sent = data['comment']
   res={}
   af_pre=preprocessing_hi(sent)
-  print(af_pre)
-  res['after']=af_pre
-  res['before']=sent
+  tokenizer = Tokenizer()
+  tokenizer.fit_on_texts(af_pre)
+  seq = tokenizer.texts_to_sequences(af_pre)
+  padded = pad_sequences(seq, maxlen=max_seq_len)
+  predictions = loaded_model.predict(padded)
+    #output=class_names[np.argmax(predictions, axis=1)]
+  pr=np.argmax(predictions)
+  res['prediction']=str(pr)
                 
   return jsonify(res)
 if __name__ == "__main__":
