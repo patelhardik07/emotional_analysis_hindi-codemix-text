@@ -58,8 +58,9 @@ cors = CORS(app, resources={
 @app.route('/', methods=['POST'])
 #@crossdomain(origin='*')
 def predict():
-    
-    # get data
+  data = request.get_json(force=True)
+  res={}
+   # get data
   for i in (data['comment']):
     sent = data['comment'][i]
     cmt=sent
@@ -68,7 +69,9 @@ def predict():
     padded = pad_sequences(seq, maxlen=max_seq_len)
     predictions = loaded_model.predict(padded)
     pr=np.argmax(predictions)
-    res['prediction']=str(pr)             
+    res[i]={}
+    res[i]['comment']=cmt
+    res[i]['prediction']=str(pr)             
   return jsonify(res)
 if __name__ == "__main__":
     app.run(port = 5000, debug=True)
