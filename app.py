@@ -34,7 +34,7 @@ dat = pd.read_csv('dataset.csv', sep=',' ,names=["message", "sentiment"])
 dat=dat.drop(index=0)
 dat=dat.dropna()
 dat=dat.drop(dat[dat['sentiment'] == "Discard"].index) 
-
+dat.reset_index(inplace = True, drop = True) 
 corpus=[]
 for i in range(0, len(dat)):
   comment = dat['message'][i]
