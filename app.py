@@ -29,7 +29,7 @@ def preprocessing_hi(text_hi):
   tweet = ' '.join([str(token)  for token in tweet_hi])
    
   return tweet
-
+labels = ['Negative-Anger', 'Negative-fear', 'Negative-sadness', 'Nuetral', 'Positive-Joy	', 'Positive-Surprise	', 'Positive-Trust ', 'Satire']
 dat = pd.read_csv('dataset.csv', sep=',' ,names=["message", "sentiment"])
 dat=dat.drop(index=0)
 dat=dat.dropna()
@@ -65,13 +65,13 @@ def predict():
     sent = data['comment'][i]
     cmt=sent
     af_pre=preprocessing_hi(sent)
-    seq = tokenizer.texts_to_sequences(af_pre)
-    padded = pad_sequences(seq)
+    seq = tokenizer.texts_to_sequences([af_pre])
+    padded = pad_sequences(seq,maxlen=137)
     predictions = loaded_model.predict(padded)
     pr=np.argmax(predictions)
     res[i]={}
-    res[i]['comment']=cmt
-    res[i]['prediction']=str(pr)             
+    res[i]['Comment']=cmt
+    res[i]['Emotion']= labels[pr]           
   return jsonify(res)
 if __name__ == "__main__":
     app.run(port = 5000, debug=True)
